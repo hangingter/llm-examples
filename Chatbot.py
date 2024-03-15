@@ -9,6 +9,12 @@ with st.sidebar:
 
 st.title("💬 Chatbot")
 st.caption("🚀 A streamlit chatbot powered by OpenAI LLM")
+option = st.selectbox(
+    'How would you like to be contacted?',
+    ('gpt-3.5-turbo', 'gpt-3.5-turbo-0125', 'gpt-4-turbo-preview', 'gpt-4-0125-preview'))
+st.write('You selected:', option)
+
+
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
