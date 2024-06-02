@@ -9,10 +9,10 @@ with st.sidebar:
 
 st.title("💬 Chatbot")
 st.caption("🚀 A streamlit chatbot powered by OpenAI LLM")
-option = st.selectbox(
+model_option = st.selectbox(
     'How would you like to be contacted?',
-    ('gpt-3.5-turbo', 'gpt-3.5-turbo-0125', 'gpt-4-turbo-preview', 'gpt-4-0125-preview'))
-st.write('You selected:', option)
+    ('gpt-4o', 'gpt-3.5-turbo', 'gpt-3.5-turbo-0125', 'gpt-4-turbo-preview', 'gpt-4-0125-preview'))
+st.write('You selected:', model_option)
 
 
 if "messages" not in st.session_state:
@@ -29,7 +29,7 @@ if prompt := st.chat_input():
     client = OpenAI(api_key=openai_api_key)
     st.session_state.messages.append({"role": "user", "content": prompt})
     st.chat_message("user").write(prompt)
-    response = client.chat.completions.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
+    response = client.chat.completions.create(model=model_option, messages=st.session_state.messages)
     msg = response.choices[0].message.content
     st.session_state.messages.append({"role": "assistant", "content": msg})
     st.chat_message("assistant").write(msg)
